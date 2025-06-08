@@ -32,7 +32,7 @@ Create professional n8n workflows from natural language descriptions in seconds!
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/n8n-agent.git
+git clone https://github.com/1987-Dmytro/n8n-agent.git
 cd n8n-agent
 
 # Install dependencies
@@ -239,7 +239,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ```bash
 # Clone and setup
-git clone https://github.com/yourusername/n8n-agent.git
+git clone https://github.com/1987-Dmytro/n8n-agent.git
 cd n8n-agent
 
 # Create virtual environment
