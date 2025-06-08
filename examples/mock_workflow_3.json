@@ -1,0 +1,60 @@
+{
+  "name": "Simple Webhook Workflow",
+  "active": false,
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        100,
+        200
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "simple",
+        "authentication": "none"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        300,
+        200
+      ],
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "result",
+              "value": "processed"
+            },
+            {
+              "name": "timestamp",
+              "value": "{{ $now }}"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": {}
+}

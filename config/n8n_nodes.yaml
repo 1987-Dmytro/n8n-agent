@@ -1,0 +1,362 @@
+categories:
+  regular:
+  - n8n-nodes-base.httpRequest
+  - n8n-nodes-base.googleSheets
+  - n8n-nodes-base.gmail
+  - n8n-nodes-base.slack
+  - n8n-nodes-base.set
+  - n8n-nodes-base.if
+  - n8n-nodes-base.switch
+  - n8n-nodes-base.merge
+  - n8n-nodes-base.wait
+  trigger:
+  - n8n-nodes-base.webhook
+  - n8n-nodes-base.schedule
+nodes:
+  n8n-nodes-base.gmail:
+    category: regular
+    connection_required: gmailOAuth2
+    description: Отправка и получение email через Gmail
+    display_name: Gmail
+    outputs:
+    - main
+    parameters:
+      attachments:
+        description: Вложения
+        type: fixedCollection
+      message:
+        description: Текст сообщения
+        type: string
+      operation:
+        options:
+        - send
+        - get
+        - getAll
+        type: options
+      subject:
+        description: Тема письма
+        type: string
+      to:
+        description: Email получателя
+        type: string
+    use_cases:
+    - Отправка уведомлений
+    - Автоматические отчеты
+    - Обработка входящей почты
+  n8n-nodes-base.googleSheets:
+    category: regular
+    connection_required: googleSheetsOAuth2Api
+    description: Работа с Google Таблицами
+    display_name: Google Sheets
+    outputs:
+    - main
+    parameters:
+      operation:
+        options:
+        - append
+        - read
+        - update
+        - clear
+        type: options
+      range:
+        description: Диапазон ячеек (A1:C10)
+        type: string
+      sheetId:
+        required: true
+        type: string
+      values:
+        description: Данные для записи
+        type: array
+    use_cases:
+    - Сохранение данных в таблицы
+    - Чтение конфигураций
+    - Создание отчетов
+  n8n-nodes-base.httpRequest:
+    category: regular
+    description: Выполнение HTTP запросов к API
+    display_name: HTTP Request
+    example_config:
+      headers:
+        Content-Type: application/json
+      method: GET
+      url: https://api.example.com/data
+    outputs:
+    - main
+    parameters:
+      authentication:
+        options:
+        - none
+        - basicAuth
+        - oAuth2
+        - apiKey
+        type: options
+      body:
+        description: Тело запроса
+        type: json
+      headers:
+        description: HTTP заголовки
+        type: fixedCollection
+      method:
+        options:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        type: options
+      url:
+        required: true
+        type: string
+    use_cases:
+    - Интеграция с REST API
+    - Получение данных от сервисов
+    - Отправка данных в системы
+  n8n-nodes-base.if:
+    category: regular
+    description: Условная логика
+    display_name: IF
+    outputs:
+    - main
+    - fallback
+    parameters:
+      combineOperation:
+        options:
+        - any
+        - all
+        type: options
+      conditions:
+        description: Условия для проверки
+        type: fixedCollection
+    use_cases:
+    - Условная обработка
+    - Фильтрация данных
+    - Ветвление логики
+  n8n-nodes-base.merge:
+    category: regular
+    description: Объединение данных из разных источников
+    display_name: Merge
+    outputs:
+    - main
+    parameters:
+      joinMode:
+        options:
+        - inner
+        - left
+        - outer
+        type: options
+      mode:
+        options:
+        - append
+        - merge
+        - multiplex
+        type: options
+    use_cases:
+    - Объединение данных
+    - Синхронизация потоков
+    - Агрегация результатов
+  n8n-nodes-base.schedule:
+    category: trigger
+    description: Запуск workflow по расписанию
+    display_name: Schedule Trigger
+    outputs:
+    - main
+    parameters:
+      cronExpression:
+        description: Cron выражение
+        type: string
+      interval:
+        description: Интервал в минутах
+        type: number
+      rule:
+        options:
+        - interval
+        - cron
+        type: options
+    use_cases:
+    - Регулярная обработка данных
+    - Периодические отчеты
+    - Автоматическая синхронизация
+  n8n-nodes-base.set:
+    category: regular
+    description: Установка и модификация данных
+    display_name: Set
+    example_config:
+      values:
+        string:
+        - name: processed_at
+          value: '{{ $now }}'
+        - name: status
+          value: completed
+    outputs:
+    - main
+    parameters:
+      options:
+        description: Дополнительные опции
+        type: collection
+      values:
+        description: Поля для установки
+        type: fixedCollection
+    use_cases:
+    - Трансформация данных
+    - Добавление полей
+    - Изменение структуры
+  n8n-nodes-base.slack:
+    category: regular
+    connection_required: slackApi
+    description: Интеграция со Slack
+    display_name: Slack
+    outputs:
+    - main
+    parameters:
+      attachments:
+        description: Вложения
+        type: fixedCollection
+      channel:
+        description: Канал Slack
+        type: string
+      operation:
+        options:
+        - postMessage
+        - update
+        - get
+        type: options
+      text:
+        description: Текст сообщения
+        type: string
+      username:
+        description: Имя бота
+        type: string
+    use_cases:
+    - Уведомления команды
+    - Алерты системы
+    - Интерактивные боты
+  n8n-nodes-base.switch:
+    category: regular
+    description: Множественное ветвление
+    display_name: Switch
+    outputs:
+    - main
+    - fallback
+    parameters:
+      mode:
+        options:
+        - expression
+        - rules
+        type: options
+      rules:
+        description: Правила ветвления
+        type: fixedCollection
+      value:
+        description: Значение для сравнения
+        type: string
+    use_cases:
+    - Маршрутизация данных
+    - Множественные условия
+    - Обработка разных типов
+  n8n-nodes-base.wait:
+    category: regular
+    description: Пауза в выполнении workflow
+    display_name: Wait
+    outputs:
+    - main
+    parameters:
+      amount:
+        description: Время ожидания
+        type: number
+      unit:
+        options:
+        - seconds
+        - minutes
+        - hours
+        - days
+        type: options
+    use_cases:
+    - Задержка обработки
+    - Ожидание внешних событий
+    - Throttling запросов
+  n8n-nodes-base.webhook:
+    category: trigger
+    description: Получение HTTP запросов для запуска workflow
+    display_name: Webhook
+    example_config:
+      authentication: none
+      httpMethod: POST
+      path: webhook-data
+    outputs:
+    - main
+    parameters:
+      authentication:
+        options:
+        - none
+        - basicAuth
+        - headerAuth
+        type: options
+      httpMethod:
+        options:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        type: options
+      path:
+        description: URL path для webhook
+        type: string
+    use_cases:
+    - Получение данных от внешних систем
+    - Интеграция с третьими сторонами
+    - Автоматический запуск при событиях
+workflow_patterns:
+  api_to_multiple_destinations:
+    connections:
+    - from: 0
+      to: 1
+    - from: 1
+      to: 2
+    - from: 1
+      to: 3
+    description: Получение данных и отправка в несколько мест
+    nodes:
+    - n8n-nodes-base.httpRequest
+    - n8n-nodes-base.set
+    - n8n-nodes-base.googleSheets
+    - n8n-nodes-base.slack
+    use_case: Распределение данных по системам
+  conditional_notification:
+    connections:
+    - from: 0
+      to: 1
+    - from: 1
+      output: main
+      to: 2
+    - from: 1
+      output: fallback
+      to: 3
+    description: Условные уведомления
+    nodes:
+    - n8n-nodes-base.webhook
+    - n8n-nodes-base.if
+    - n8n-nodes-base.slack
+    - n8n-nodes-base.gmail
+    use_case: Разные уведомления в зависимости от условий
+  scheduled_data_sync:
+    connections:
+    - from: 0
+      to: 1
+    - from: 1
+      to: 2
+    description: Периодическая синхронизация данных
+    nodes:
+    - n8n-nodes-base.schedule
+    - n8n-nodes-base.httpRequest
+    - n8n-nodes-base.googleSheets
+    use_case: Регулярное получение и сохранение данных
+  webhook_to_action:
+    connections:
+    - from: 0
+      to: 1
+    description: Получение webhook и выполнение действия
+    nodes:
+    - n8n-nodes-base.webhook
+    - n8n-nodes-base.set
+    use_case: Простая обработка входящих данных

@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-06-08T09:31:24.774910",
+  "base_url": "http://localhost:5678",
+  "tests": {
+    "basic_connection": {
+      "status": "success",
+      "code": 200
+    },
+    "authentication": {
+      "authenticated": false,
+      "message": "Не аутентифицирован"
+    },
+    "node_types_access": {
+      "status": "error",
+      "message": "Ошибка получения nodes: 404"
+    }
+  }
+}
