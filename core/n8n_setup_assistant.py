@@ -245,7 +245,7 @@ class N8NSetupAssistant:
 2. Обновите .env файл:
    ```
    N8N_EMAIL=admin@n8n-agent.local
-   N8N_PASSWORD=N8NAgent2025!
+   N8N_PASSWORD=your_secure_password_here
    ```
 
 ### Шаг 4: Тестирование подключения

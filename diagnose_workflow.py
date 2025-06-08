@@ -64,7 +64,7 @@ def diagnose_workflow_issue():
     # 3. Пробуем создать в n8n с детальной диагностикой
     print(f"\n3️⃣ Попытка создания в n8n с диагностикой...")
     
-    api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYTVhZTQ3YS1hZDNmLTQ1OTYtYjE5OS05ZjA4MTE2M2M5NGQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzQ5MzY4Njg0LCJleHAiOjE3NTE5NDcyMDB9.bvYcgPwSgZA1GEfIuBSkQ1Kv3imRu38JGdkQnEJ18VM"
+    api_key = os.getenv('N8N_API_KEY') or "your_n8n_api_key_here"
     client = N8NProductionClient(api_key)
     
     create_result = client.create_workflow(workflow_data)

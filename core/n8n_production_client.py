@@ -123,7 +123,7 @@ def test_production_client():
     """Тестирование Production клиента"""
     
     # API ключ из .env
-    api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYTVhZTQ3YS1hZDNmLTQ1OTYtYjE5OS05ZjA4MTE2M2M5NGQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzQ5MzY4Njg0LCJleHAiOjE3NTE5NDcyMDB9.bvYcgPwSgZA1GEfIuBSkQ1Kv3imRu38JGdkQnEJ18VM"
+    api_key = os.getenv('N8N_API_KEY') or "your_n8n_api_key_here"
     
     client = N8NProductionClient(api_key)
     
